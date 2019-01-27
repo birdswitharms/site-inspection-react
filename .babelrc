@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "macros",
+    "react-relay",
+    "relay"
+  ]
+}
