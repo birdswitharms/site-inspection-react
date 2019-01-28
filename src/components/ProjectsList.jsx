@@ -3,6 +3,7 @@ import { QueryRenderer } from 'react-relay'
 import styled from 'styled-components'
 
 import environment from '../helpers/RelayEnvironment'
+import TableHeader from '../components/TableHeader';
 import ProjectsQuery from '../queries/ProjectsQuery'
 
 class ProjectsList extends Component {
@@ -16,16 +17,17 @@ class ProjectsList extends Component {
     `
 
     const StyledRow = styled.div`
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: bold;
-      border-radius: 5px;
       text-align: center;
-      padding: 0.5rem;
-      background-color: lightgrey;
-      border: 1px solid black;
-      width: 90%;
-      margin: 0 auto;
+      width: 100%;
+
+      div {
+        display: inline-block;
+        margin: 1rem 2rem;
+      }
     `
+
     return (
       <QueryRenderer
         environment={environment}
@@ -41,8 +43,11 @@ class ProjectsList extends Component {
             let { allProjects } = props
             return (
               <ListContainer>
+                <TableHeader />
                 {allProjects.map(project =>
-                  <StyledRow>#{project.jobNumber} - {project.name}</StyledRow>
+                  <StyledRow>
+                    <div>{project.jobNumber}</div><div>{project.name}</div>
+                  </StyledRow>
                 )}
               </ListContainer>
             )

@@ -7,7 +7,6 @@ class App extends Component {
   render() {
     const Container = styled.div`
       display: flex;
-
     `
 
     return (
