@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Forward from '@material-ui/icons/ForwardRounded'
+import IconButton from '@material-ui/core/IconButton';
 
 import { QueryRenderer } from 'react-relay';
 import environment from '../helpers/RelayEnvironment';
@@ -51,7 +52,7 @@ function ProjectsTable(props) {
                     <TableRow>
                       <TableCell>Job Number</TableCell>
                       <TableCell align="left">Name</TableCell>
-                      <TableCell align="right">Action</TableCell>
+                      <TableCell align="right"></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -61,7 +62,11 @@ function ProjectsTable(props) {
                           {project.jobNumber}
                         </TableCell>
                         <TableCell align="left">{project.name}</TableCell>
-                        <TableCell align="right"><Forward/></TableCell>
+                        <TableCell align="right">
+                          <IconButton>
+                            <Forward/>
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
