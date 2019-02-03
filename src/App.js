@@ -16,12 +16,14 @@ class App extends Component {
       <React.Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
-          <AppBar />
-          <BrowserRouter>
+        <BrowserRouter>
+          <>
+            <AppBar />
             <Switch>
               <Route exact path="/" component={LoginPage} />
               <Route exact path="/projects" component={ProjectsPage} />
             </Switch>
+          </>
           </BrowserRouter>
         </MuiThemeProvider>
     </React.Fragment>
