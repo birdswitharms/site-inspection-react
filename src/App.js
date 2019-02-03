@@ -5,6 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { palette } from './helpers/ui/palette';
 import LoginPage from './components/LoginPage';
+import ProjectsPage from './components/ProjectsPage';
 import AppBar from './components/AppBar';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route exact path="/" component={LoginPage} />
+              <Route exact path="/projects" component={ProjectsPage} />
             </Switch>
           </BrowserRouter>
         </MuiThemeProvider>
