@@ -23,6 +23,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginPage} />
               <Route exact path="/projects" component={ProjectsPage} />
+              <Route exact path="/project/:id" component={ProjectPage} />
             </Switch>
           </>
           </BrowserRouter>
