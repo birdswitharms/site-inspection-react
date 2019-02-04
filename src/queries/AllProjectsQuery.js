@@ -1,7 +1,7 @@
 import { graphql } from 'babel-plugin-relay/macro';
 
-const ProjectsQuery = graphql`
-  query ProjectsQuery {
+const AllProjectsQuery = graphql`
+  query AllProjectsQuery {
     allProjects {
       id
       name
@@ -10,4 +10,4 @@ const ProjectsQuery = graphql`
   }
 `;
 
-export default ProjectsQuery;
+export default AllProjectsQuery;
