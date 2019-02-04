@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import { palette } from './helpers/ui/palette';
+import { themeDetails } from './helpers/ui/theme';
 import LoginPage from './components/LoginPage';
 import ProjectsPage from './components/ProjectsPage';
+import ProjectPage from './components/ProjectPage';
 import AppBar from './components/AppBar';
 
 class App extends Component {
   render() {
-    const theme = createMuiTheme(palette);
+    const theme = createMuiTheme(themeDetails);
 
     return (
       <React.Fragment>
@@ -22,6 +23,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={LoginPage} />
               <Route exact path="/projects" component={ProjectsPage} />
+              <Route exact path="/project/:id" component={ProjectPage} />
             </Switch>
           </>
           </BrowserRouter>

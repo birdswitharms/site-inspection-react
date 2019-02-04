@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,27 +13,26 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { QueryRenderer } from 'react-relay';
 import environment from '../helpers/RelayEnvironment';
-import ProjectsQuery from '../queries/ProjectsQuery';
+import AllProjectsQuery from '../queries/AllProjectsQuery';
 import Loader from './Loader';
-
 
 const styles = theme => ({
   root: {
-    width: '100%',
     overflowX: 'auto',
+    margin: theme.spacing.unit * 2,
   },
   table: {
-    minWidth: '100vw',
+    maxWidth: '100vw',
   },
 });
 
 function ProjectsTable(props) {
   const { classes } = props;
-
+  const parentProps = props;
   return (
     <QueryRenderer
         environment={environment}
-        query={ProjectsQuery}
+        query={AllProjectsQuery}
         render={({ error, props }) => {
           if (error) {
             console.log({error})
@@ -62,9 +62,9 @@ function ProjectsTable(props) {
                           {project.jobNumber}
                         </TableCell>
                         <TableCell align="left">{project.name}</TableCell>
-                        <TableCell align="right">
-                          <IconButton>
-                            <Forward/>
+                        <TableCell align="right" onClick={() => parentProps.history.push("/project/"+project.id)}>
+                          <IconButton >
+                            <Forward />
                           </IconButton>
                         </TableCell>
                       </TableRow>
@@ -83,4 +83,4 @@ ProjectsTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProjectsTable);
+export default withRouter(withStyles(styles)(ProjectsTable));
