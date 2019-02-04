@@ -19,7 +19,6 @@ import Loader from './Loader';
 const styles = theme => ({
   root: {
     overflowX: 'auto',
-    margin: theme.spacing.unit * 2,
   },
   table: {
     maxWidth: '100vw',
