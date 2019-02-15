@@ -12,7 +12,7 @@ const styles = theme => ({
 function Loader(props) {
   const { classes } = props;
   return (
-    <div>
+    <div style={{'textAlign': 'center', 'marginTop': '5rem'}}>
       <CircularProgress className={classes.progress} />
     </div>
   );
