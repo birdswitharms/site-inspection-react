@@ -2,17 +2,19 @@ import { graphql } from 'react-relay';
 
 const ProjectQuery = graphql`
   query ProjectQuery($id: ID!) {
-    project(id: $id) {
-      gcCompany
-      address
-      checklists {
-        name
+    project: node(id: $id) {
+      ... on Project {
+        gcCompany
+        address
+        checklists {
+          name
+          id
+        }
         id
+        jobNumber
+        name
+        permitNumber
       }
-      id
-      jobNumber
-      name
-      permitNumber
     }
   }
 `
