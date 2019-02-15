@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
 import { QueryRenderer } from 'react-relay';
-import { withRouter } from 'react-router-dom';
 import environment from '../helpers/RelayEnvironment';
-import Loader from './Loader';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import Checkbox from '@material-ui/core/Checkbox';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Forward from '@material-ui/icons/ForwardRounded'
-import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
+import Loader from './Loader';
 
-import query from '../queries/ProjectQuery';
+import query from '../queries/ChecklistQuery';
+import Task from './Task';
 
 const styles = theme => ({
   root: {
@@ -46,7 +46,7 @@ const styles = theme => ({
   }
 });
 
-class ProjectPage extends Component {
+class ChecklistPage extends Component {
   render() {
     const { match: { params: { id } } } = this.props;
     const variables = { id };
@@ -64,42 +64,39 @@ class ProjectPage extends Component {
           if (!props) {
             return <Loader/>
           } else {
-            const { project } = props
-            const checklists = get(project, 'checklists', {})
+            const checklist = get(props, 'checklist')
+            const tasks = get(checklist, 'task')
+            const user = get(checklist, 'user')
             return (
               <>
                 <Paper className={classes.paper}>
                   <Typography variant="h6" className={classes.header}>
-                    #{project.jobNumber} - {project.name}<Divider/>
+                  {checklist.name}<Divider/>
                   </Typography>
                   <div className={classes.subHeader}>
-                    <div>General Contractor:</div><div className={classes.detailsLeft}>{project.gcCompany}</div>
+                    <div>Owner:</div><div className={classes.detailsLeft}>{user.name}</div>
                   </div>
                   <div className={classes.subHeader}>
-                    <div>Address:</div><div className={classes.detailsLeft}>{project.address}</div>
-                  </div>
-                  <div className={classes.subHeader}>
-                    <div>Permit Number:</div><div className={classes.detailsLeft}>{project.permitNumber}</div>
+                    <div>Percent Complete:</div><div className={classes.detailsLeft}>0%</div>
                   </div>
                 </Paper>
                 <Table className={classes.table}>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell align="right"></TableCell>
+                      <TableCell>Tasks</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {checklists.map(checklist => (
-                      <TableRow key={checklist.id}>
-                        <TableCell component="th" scope="row">
-                          {checklist.name}
-                        </TableCell>
-                        <TableCell align="right" onClick={() => this.props.history.push("/checklist/"+checklist.id)}>
-                          <IconButton >
-                            <Forward name={checklist.id}/>
-                          </IconButton>
-                        </TableCell>
+                    {tasks.map((task, index) => (
+                      <TableRow key={index}>
+                        <TableRow component="th" scope="row">
+                          <TableCell style={{'padding': '0'}}>
+                            <Task key={task.id} description={task.description}/>
+                          </TableCell>
+                          <TableCell style={{'padding': '0'}}>
+                            <Checkbox checked={task.completed} />
+                          </TableCell>
+                        </TableRow>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -113,4 +110,4 @@ class ProjectPage extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(ProjectPage));
+export default withRouter(withStyles(styles)(ChecklistPage));

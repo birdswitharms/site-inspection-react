@@ -7,6 +7,7 @@ import { themeDetails } from './helpers/ui/theme';
 import LoginPage from './components/LoginPage';
 import ProjectsPage from './components/ProjectsPage';
 import ProjectPage from './components/ProjectPage';
+import ChecklistPage from './components/ChecklistPage';
 import AppBar from './components/AppBar';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
               <Route exact path="/" component={LoginPage} />
               <Route exact path="/projects" component={ProjectsPage} />
               <Route exact path="/project/:id" component={ProjectPage} />
+              <Route exact path="/checklist/:id" component={ChecklistPage} />
             </Switch>
           </>
           </BrowserRouter>
