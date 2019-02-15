@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { get } from 'lodash';
 import { QueryRenderer } from 'react-relay';
-
+import { withRouter } from 'react-router-dom';
 import environment from '../helpers/RelayEnvironment';
 import Loader from './Loader';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,7 +32,6 @@ const styles = theme => ({
     fontSize: '1.5rem',
     marginBottom: theme.spacing.unit * 2,
     textAlign: 'left',
-    fontWeight: 'bold',
   },
   subHeader: {
     fontSize: '1rem',
@@ -69,7 +69,9 @@ class ProjectPage extends Component {
             return (
               <>
                 <Paper className={classes.paper}>
-                  <div className={classes.header}>#{project.jobNumber} - {project.name}<Divider/></div>
+                  <Typography variant="h6" className={classes.header}>
+                    #{project.jobNumber} - {project.name}<Divider/>
+                  </Typography>
                   <div className={classes.subHeader}>
                     <div>General Contractor:</div><div className={classes.detailsLeft}>{project.gcCompany}</div>
                   </div>
@@ -80,7 +82,6 @@ class ProjectPage extends Component {
                     <div>Permit Number:</div><div className={classes.detailsLeft}>{project.permitNumber}</div>
                   </div>
                 </Paper>
-                <Paper className={classes.root}>
                 <Table className={classes.table}>
                   <TableHead>
                     <TableRow>
@@ -94,7 +95,7 @@ class ProjectPage extends Component {
                         <TableCell component="th" scope="row">
                           {checklist.name}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="right" onClick={() => this.props.history.push("/checklist/"+checklist.id)}>
                           <IconButton >
                             <Forward name={checklist.id}/>
                           </IconButton>
@@ -103,7 +104,6 @@ class ProjectPage extends Component {
                     ))}
                   </TableBody>
                 </Table>
-              </Paper>
               </>
             )
           }
@@ -113,4 +113,4 @@ class ProjectPage extends Component {
   }
 }
 
-export default withStyles(styles)(ProjectPage);
+export default withRouter(withStyles(styles)(ProjectPage));

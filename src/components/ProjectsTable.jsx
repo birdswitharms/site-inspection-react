@@ -7,7 +7,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Forward from '@material-ui/icons/ForwardRounded'
 import IconButton from '@material-ui/core/IconButton';
 
@@ -45,32 +44,30 @@ function ProjectsTable(props) {
               ({...project})
             )
             return (
-              <Paper className={classes.root}>
-                <Table className={classes.table}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Job Number</TableCell>
-                      <TableCell align="left">Name</TableCell>
-                      <TableCell align="right"></TableCell>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Job Number</TableCell>
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="right"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {newData.map(project => (
+                    <TableRow key={project.id}>
+                      <TableCell component="th" scope="row">
+                        {project.jobNumber}
+                      </TableCell>
+                      <TableCell align="left">{project.name}</TableCell>
+                      <TableCell align="right" onClick={() => parentProps.history.push("/project/"+project.id)}>
+                        <IconButton >
+                          <Forward />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {newData.map(project => (
-                      <TableRow key={project.id}>
-                        <TableCell component="th" scope="row">
-                          {project.jobNumber}
-                        </TableCell>
-                        <TableCell align="left">{project.name}</TableCell>
-                        <TableCell align="right" onClick={() => parentProps.history.push("/project/"+project.id)}>
-                          <IconButton >
-                            <Forward />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Paper>
+                  ))}
+                </TableBody>
+              </Table>
             )
           }
         }}
